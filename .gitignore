@@ -9,3 +9,7 @@
 # OS / editor cruft
 .DS_Store
 Thumbs.db
+
+# PowerPoint presentation files (source decks — PDFs in presentation/ are the tracked deliverables)
+*.pptx
+*.potx

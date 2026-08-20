@@ -1,0 +1,11 @@
+# Secrets / local-only credentials — never commit
+.env
+.env.*
+!.env.example
+**/*.local.md
+**/*.local.env
+**/*.local.txt
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db

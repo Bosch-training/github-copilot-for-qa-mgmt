@@ -1,0 +1,11 @@
+Ticket ID,Summary,Type,Priority,Story Points,Epic,Status
+QAM-220,Level 2+ highway lane-change assist,Story,High,13,ACC Enhancement,Ready
+QAM-221,Refactor radar test-data seeding scripts,Task,Medium,5,Test Infra,Ready
+QAM-222,Night-mode contrast for driver alert HUD,Story,Low,3,HMI Polish,Needs Grooming
+QAM-223,API contract tests for perception-service object list,Story,Medium,8,Test Infra,Needs Grooming
+QAM-224,Investigate n8n Jira node rate limits,Spike,High,3,Automation,Ready
+QAM-225,Migrate legacy defect export to CSV,Task,Low,2,Reporting,Needs Grooming
+QAM-226,Add pedestrian-crossing AEB test scenario,Story,High,5,AEB Hardening,Needs Grooming
+QAM-227,Coverage-gap report automation,Story,High,8,Automation,Needs Grooming
+QAM-228,Upgrade HIL bench firmware,Task,Medium,3,Test Infra,Ready
+QAM-229,PR scope-check bot proof of concept,Spike,Medium,5,Automation,Needs Grooming

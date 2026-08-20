@@ -1,0 +1,13 @@
+Ticket ID,Summary,Type,Status,Assignee,Story Points,Sprint,Priority,Labels
+QAM-201,Tune AEB time-to-collision (TTC) braking threshold,Story,Done,R. Nair,5,Sprint 14,High,aeb;safety
+QAM-202,Implement ACC target-vehicle handoff logic,Story,Done,R. Nair,3,Sprint 14,Medium,acc
+QAM-203,Validate LKA steering torque limit,Story,In Progress,S. Iyer,5,Sprint 14,Medium,lka
+QAM-204,Camera-radar sensor fusion calibration for FCW,Story,In Progress,S. Iyer,8,Sprint 14,High,sensor-fusion
+QAM-205,Fix flaky HIL bench test for blind-spot detection (BSD),Bug,Blocked,A. Rao,2,Sprint 14,High,test-infra;hil
+QAM-206,Update ADAS test-case traceability matrix in wiki,Task,Done,K. Menon,1,Sprint 14,Low,docs
+QAM-207,Defect triage: AEB false-positive brake at highway speed,Bug,In Progress,A. Rao,3,Sprint 14,Critical,defect;aeb
+QAM-208,Regression suite for traffic-sign recognition (TSR),Story,Not Started,S. Iyer,8,Sprint 14,Medium,regression
+QAM-209,HMI accessibility audit for driver alert cluster,Story,Not Started,R. Nair,5,Sprint 14,Low,a11y;hmi
+QAM-210,Closed-course track test session for ACC,Task,Blocked,A. Rao,3,Sprint 14,High,track-test
+QAM-211,Retro action: automate CAN bus log capture in CI,Task,In Progress,K. Menon,2,Sprint 14,Medium,ci-cd
+QAM-212,Sync PR template with functional-safety (ASIL) checklist,Task,Done,K. Menon,1,Sprint 14,Low,process;safety

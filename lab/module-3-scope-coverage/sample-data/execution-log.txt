@@ -1,0 +1,18 @@
+2026-08-17T09:14:02Z INFO  suite=aeb.sensor_fusion test=AEB-99 status=start
+2026-08-17T09:14:08Z INFO  suite=aeb.sensor_fusion test=AEB-99 status=pass duration=6410ms
+2026-08-17T09:14:09Z INFO  suite=aeb.ttc_reevaluation test=AEB-101 status=start
+2026-08-17T09:14:19Z INFO  suite=aeb.ttc_reevaluation test=AEB-101 status=pass duration=9870ms
+2026-08-17T09:14:20Z INFO  suite=aeb.warning_latency test=AEB-105 status=start
+2026-08-17T09:14:41Z WARN  warning-output capture rig queue depth=142, above normal threshold of 20
+2026-08-17T09:24:32Z ERROR suite=aeb.warning_latency test=AEB-105 status=fail reason="warning latency exceeded 300ms, actual=910ms"
+2026-08-17T09:24:33Z INFO  suite=aeb.degraded_mode test=AEB-108 status=start radar_overload_frames=50
+2026-08-17T09:24:48Z WARN  sensor_fusion_buffer exhausted, 12 frames queued
+2026-08-17T09:25:18Z ERROR suite=aeb.degraded_mode test=AEB-108 status=fail reason="pipeline hung past 30000ms, no degraded-mode transition"
+2026-08-17T09:25:19Z INFO  suite=aeb.rearm test=AEB-110 status=start
+2026-08-17T09:56:59Z ERROR suite=aeb.rearm test=AEB-110 status=fail reason="still latched inactive at 32s, expected re-armed at 30s"
+2026-08-17T09:57:00Z INFO  suite=aeb.sensitivity_config test=AEB-118 status=start
+2026-08-17T09:57:12Z INFO  suite=aeb.sensitivity_config test=AEB-118 status=pass duration=12340ms
+2026-08-17T09:57:13Z INFO  suite=aeb.edr_logging test=AEB-130 status=start
+2026-08-17T09:57:57Z INFO  suite=aeb.edr_logging test=AEB-130 status=pass duration=44450ms
+2026-08-17T09:57:58Z INFO  suite run complete: 7 tests, 4 passed, 3 failed
+2026-08-17T09:57:58Z INFO  build=2026.08.17.3 report written to test-execution-report.xml

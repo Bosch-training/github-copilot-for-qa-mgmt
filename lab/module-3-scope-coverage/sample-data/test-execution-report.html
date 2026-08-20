@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>AEB Regression Suite - Build 2026.08.17.3</title></head>
+<body>
+<h1>AEB Regression Suite — Build 2026.08.17.3</h1>
+<p>7 tests, 4 passed, 3 failed, 0 errors, 184.22s total</p>
+<table border="1" cellpadding="6">
+  <tr><th>Requirement</th><th>Test</th><th>Result</th><th>Notes</th></tr>
+  <tr><td>AEB-99</td><td>rejects implausible radar return, falls back to camera-only</td><td>PASS</td><td></td></tr>
+  <tr><td>AEB-101</td><td>TTC re-evaluation resumes after transient radar lock loss</td><td>PASS</td><td></td></tr>
+  <tr><td>AEB-105</td><td>pre-collision warning fires within 300ms</td><td><b>FAIL</b></td><td>Logged at 910ms, expected &lt;300ms</td></tr>
+  <tr><td>AEB-108</td><td>perception pipeline degrades to camera-only under overload</td><td><b>FAIL</b></td><td>Pipeline hung past 30s instead of degrading</td></tr>
+  <tr><td>AEB-110</td><td>AEB re-arms within 30s after full stop-and-release</td><td><b>FAIL</b></td><td>Still latched inactive at 32s, expected re-armed at 30s</td></tr>
+  <tr><td>AEB-118</td><td>driver can configure AEB sensitivity via HMI</td><td>PASS</td><td></td></tr>
+  <tr><td>AEB-130</td><td>AEB activations written to EDR</td><td>PASS</td><td></td></tr>
+</table>
+<p><em>Note: this report only reflects requirements that had a test case written for this build. Cross-reference against aeb-requirements.csv to see which requirements have no corresponding test at all.</em></p>
+</body>
+</html>

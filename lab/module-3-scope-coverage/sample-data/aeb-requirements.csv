@@ -1,0 +1,11 @@
+Requirement ID,Title,Description,Priority
+AEB-99,Radar plausibility validation,Radar returns must be validated against a camera-confirmed range-rate envelope before being trusted for AEB braking decisions; an implausible return must fall back to camera-only detection and never suppress AEB entirely,Critical
+AEB-101,TTC re-evaluation after lock loss,AEB must correctly re-evaluate time-to-collision and resume tracking after a transient radar lock loss rather than remain in a stale pre-loss state,High
+AEB-105,Pre-collision warning latency,Audible and visual pre-collision driver warning must fire within 300ms of AEB threat detection,Medium
+AEB-108,Graceful degradation under sensor overload,AEB perception pipeline must degrade to camera-only and warn the driver rather than hang when radar data volume exceeds processing capacity,Critical
+AEB-110,Re-arm after full stop,AEB must re-arm within 30 seconds after a full stop-and-release cycle rather than remain latched inactive,High
+AEB-114,TTC recalculation on changing deceleration,Time-to-collision must recalculate correctly when the target vehicle's deceleration rate changes mid-approach rather than using a stale estimate,Critical
+AEB-118,AEB sensitivity configuration,Driver must be able to configure AEB sensitivity (Early/Standard/Late) via the HMI settings menu,High
+AEB-121,Manual-override event logging,Each driver manual-override event during an AEB intervention must be written to the safety event log exactly once and rejected on duplicate,High
+AEB-125,Warning accessibility redundancy,AEB warning must be perceivable through both visual and audible channels for drivers with a hearing or vision limitation,Medium
+AEB-130,EDR activation logging,Every AEB activation (full or partial brake intervention) must be written to the vehicle's event data recorder (EDR) / safety audit log,High

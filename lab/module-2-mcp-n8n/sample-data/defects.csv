@@ -1,0 +1,8 @@
+Defect ID,Summary,Severity,Status,Linked Requirement,Sprint,Created Date
+QAM-306,TTC does not recalculate when target-vehicle deceleration changes mid-approach,Critical,Blocked,AEB-114,Sprint 15,2026-08-08
+QAM-305,AEB perception pipeline hangs instead of degrading under radar data overload,Critical,Blocked,AEB-108,Sprint 15,2026-08-09
+QAM-311,Manual-override event logged twice for a single driver accelerator override,High,Open,AEB-121,Sprint 15,2026-08-12
+QAM-312,AEB does not re-arm within 30s after a full stop-and-release cycle,High,Open,AEB-110,Sprint 15,2026-08-13
+QAM-313,Pre-collision driver warning delayed beyond 300ms threshold,Medium,Open,AEB-105,Sprint 15,2026-08-10
+QAM-314,AEB fails to re-evaluate TTC after transient radar lock loss,Medium,Open,AEB-101,Sprint 15,2026-08-11
+QAM-315,Radar multipath reflection triggers false AEB activation at highway speed,Critical,Open,AEB-99,Sprint 14,2026-08-05

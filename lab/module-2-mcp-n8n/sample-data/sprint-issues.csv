@@ -1,0 +1,11 @@
+Issue Key,Summary,Type,Status,Assignee,Story Points,Sprint,Priority,Last Status Change
+QAM-301,Implement automatic lane-centering (ALC) control loop,Story,In Progress,R. Nair,8,Sprint 15,High,2026-08-12
+QAM-302,ACC stop-and-go traffic-jam assist logic,Story,Done,S. Iyer,3,Sprint 15,Medium,2026-08-11
+QAM-303,LKA lane-marking confidence threshold tuning,Story,Done,S. Iyer,5,Sprint 15,Medium,2026-08-10
+QAM-304,AEB pedestrian-detection recovery after occlusion,Story,In Progress,R. Nair,5,Sprint 15,High,2026-08-13
+QAM-305,Perception-service (object list) API timeout under load,Bug,Blocked,A. Rao,3,Sprint 15,Critical,2026-08-09
+QAM-306,AEB brake-force recalculation error after TTC re-estimate,Bug,Blocked,A. Rao,2,Sprint 15,Critical,2026-08-08
+QAM-307,Traffic-sign recognition (TSR) regression suite,Story,Not Started,S. Iyer,8,Sprint 15,Medium,2026-08-04
+QAM-308,Coverage-gap report script,Task,In Progress,K. Menon,3,Sprint 15,High,2026-08-13
+QAM-309,HIL rig load test,Task,Blocked,A. Rao,3,Sprint 15,High,2026-08-07
+QAM-310,PR scope-check spike,Spike,Done,K. Menon,2,Sprint 15,Low,2026-08-11

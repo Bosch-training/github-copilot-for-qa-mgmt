@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="AEB Regression Suite - Build 2026.08.17.3" tests="7" failures="3" errors="0" time="184.220">
+  <testsuite name="aeb.sensor_fusion" tests="1" failures="0" time="6.410">
+    <testcase classname="AEB-99" name="rejects implausible radar return and falls back to camera-only detection" time="6.410"/>
+  </testsuite>
+  <testsuite name="aeb.ttc_reevaluation" tests="1" failures="0" time="9.870">
+    <testcase classname="AEB-101" name="TTC re-evaluation resumes correctly after transient radar lock loss" time="9.870"/>
+  </testsuite>
+  <testsuite name="aeb.warning_latency" tests="1" failures="1" time="31.050">
+    <testcase classname="AEB-105" name="pre-collision warning fires within 300ms of threat detection" time="31.050">
+      <failure message="Warning output exceeded latency threshold" type="AssertionError">
+        Expected warning within 300ms, warning-output rig logged it at
+        910ms. See execution-log.txt line 41.
+      </failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="aeb.degraded_mode" tests="1" failures="1" time="45.900">
+    <testcase classname="AEB-108" name="perception pipeline degrades to camera-only under radar data overload" time="45.900">
+      <failure message="Pipeline hung, no degraded-mode transition within 30s timeout" type="TimeoutError">
+        50 synthetic radar-overload frames: pipeline hung past 30000ms
+        instead of transitioning to camera-only mode.
+        See execution-log.txt line 58.
+      </failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="aeb.rearm" tests="1" failures="1" time="34.200">
+    <testcase classname="AEB-110" name="AEB re-arms within 30s after a full stop-and-release cycle" time="34.200">
+      <failure message="AEB still latched inactive after re-arm window" type="AssertionError">
+        Expected re-armed at 30s, still inactive at 32s post-release.
+        See execution-log.txt line 66.
+      </failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="aeb.sensitivity_config" tests="1" failures="0" time="12.340">
+    <testcase classname="AEB-118" name="driver can configure AEB sensitivity via HMI settings menu" time="12.340"/>
+  </testsuite>
+  <testsuite name="aeb.edr_logging" tests="1" failures="0" time="44.450">
+    <testcase classname="AEB-130" name="full and partial AEB activations are written to the EDR" time="44.450"/>
+  </testsuite>
+</testsuites>

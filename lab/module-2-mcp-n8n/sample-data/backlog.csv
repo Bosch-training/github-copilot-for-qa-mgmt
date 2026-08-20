@@ -1,0 +1,9 @@
+Issue Key,Summary,Type,Priority,Story Points,Epic,Status
+QAM-320,Camera-only fallback mode for degraded radar,Story,High,13,AEB Hardening,Ready
+QAM-321,Defect-density dashboard widget,Story,Medium,5,Reporting,Ready
+QAM-322,Coverage-gap automation — n8n integration,Story,High,8,Automation,Needs Grooming
+QAM-323,Retire legacy radar hardware CAN mapping,Task,Medium,3,Sensor Fusion,Needs Grooming
+QAM-324,API contract tests for perception-service,Story,High,8,Test Infra,Ready
+QAM-325,Radar plausibility-check hardening,Story,Critical,5,AEB Hardening,Ready
+QAM-326,Consolidate defect triage labels,Task,Low,2,Process,Needs Grooming
+QAM-327,n8n workflow: weekly exec summary,Story,Medium,5,Automation,Needs Grooming

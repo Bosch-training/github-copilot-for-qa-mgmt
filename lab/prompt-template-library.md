@@ -53,6 +53,8 @@ that data is available, (3) look duplicative based on similar summaries.
 List each with its ticket ID and a one-line reason.
 ```
 
+Practiced directly in Module 1, Exercise 5.
+
 ## 5. Copilot-assisted JQL (via MCP)
 
 ```
@@ -109,9 +111,31 @@ functional defect, with your confidence level. Flag this as advisory,
 needing human confirmation before being treated as a real gap.
 ```
 
+## 9. Test execution summary deck (with defect linkage)
+
+```
+Using {test_results_source} (execution report/log) and {defect_source} as
+the defect tracker export, for the {system/use case, e.g. "ADAS AEB"}:
+1. Classify every test case by result: Passed / Failed / Not Executed
+   (a requirement with no corresponding test case counts as Not Executed).
+2. For each Failed test, state the failure reason and check whether a
+   defect is already linked in {defect_source}; if none exists, flag it as
+   an orphan failure needing a new defect.
+3. For each Passed test, confirm from the execution log that it ran the
+   correct number of iterations with no retries, so the pass can be
+   trusted; flag any pass that required a retry.
+4. Summarize briefly (bulleted, exec-facing) and include a donut chart of
+   the Passed/Failed/Not Executed split.
+Constraint: only use what's in the named sources; say "not available"
+rather than inferring; cite the specific ticket/requirement ID for every
+claim.
+Output format: {output format, e.g. "pptx"}. Filename: {naming rule, e.g.
+"today's date"}. Output folder: {target folder}.
+```
+
 ---
 
-## The pattern underneath all eight
+## The pattern underneath all nine
 
 ```
 Using {named data source(s)} —

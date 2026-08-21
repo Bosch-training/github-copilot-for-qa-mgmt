@@ -30,5 +30,31 @@ services:
     volumes:
       - n8n_data:/home/node/.n8n
 
+  # Splunk, for the client demo only — not part of any lab exercise.
+  # Ships as a full 60-day Splunk Enterprise Trial by default (that's what
+  # --accept-license alone gives you); Splunk auto-converts an unused trial
+  # to the perpetual, single-instance Free license (500MB/day) after 60
+  # days with no extra config needed — plenty for a demo container that
+  # isn't meant to run that long anyway. See splunk-demo.md.
+  splunk:
+    image: splunk/splunk:latest
+    container_name: qam-splunk-demo
+    restart: unless-stopped
+    ports:
+      - "8001:8000"   # Splunk Web — host port 8001, NOT 8000 (commonly occupied by other
+                       # local projects; container-internal port stays 8000, nothing inside
+                       # Splunk needs to know about the remap)
+      - "8088:8088"   # HTTP Event Collector (HEC) — token created via Web UI, see splunk-demo.md
+      - "8089:8089"   # Management/REST API
+    environment:
+      - SPLUNK_START_ARGS=--accept-license
+      - SPLUNK_GENERAL_TERMS=--accept-sgt-current-at-splunk-com
+      - SPLUNK_PASSWORD=${SPLUNK_PASSWORD:?set SPLUNK_PASSWORD in .env - 8+ chars, at least 1 uppercase and 1 digit}
+    volumes:
+      - splunk_var:/opt/splunk/var
+      - splunk_etc:/opt/splunk/etc
+
 volumes:
   n8n_data:
+  splunk_var:
+  splunk_etc:

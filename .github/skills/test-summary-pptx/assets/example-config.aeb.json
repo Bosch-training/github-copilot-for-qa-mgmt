@@ -1,0 +1,52 @@
+{
+  "title": "AEB Regression Test Summary",
+  "subtitle": "Build 2026.08.17.3  |  ADAS – Automatic Emergency Braking (AEB)",
+  "report_date": "2026-08-20",
+  "output_path": "output/2026-08-20.pptx",
+  "classification": {
+    "note": "7 test cases executed against 10 AEB requirements",
+    "rows": [
+      ["AEB-99", "Radar plausibility validation (multipath rejection)", "Passed"],
+      ["AEB-101", "TTC re-evaluation after transient radar lock loss", "Passed"],
+      ["AEB-105", "Pre-collision warning fires within 300ms", "Failed"],
+      ["AEB-108", "Graceful degradation under sensor overload", "Failed"],
+      ["AEB-110", "AEB re-arm within 30s after stop-and-release", "Failed"],
+      ["AEB-118", "AEB sensitivity configuration via HMI", "Passed"],
+      ["AEB-130", "EDR activation logging", "Passed"],
+      ["AEB-114", "TTC recalculation on changing deceleration", "Not Executed"],
+      ["AEB-121", "Manual-override event logging (no duplicates)", "Not Executed"],
+      ["AEB-125", "Warning accessibility redundancy (visual+audible)", "Not Executed"]
+    ]
+  },
+  "failed_defect_linkage": {
+    "note": "All 3 failures have a linked defect in the tracker",
+    "rows": [
+      ["AEB-105", "Warning fired at 910ms (>300ms threshold)", "QAM-313", "Open"],
+      ["AEB-108", "Pipeline hung >30s instead of degrading to camera-only", "QAM-305", "Blocked"],
+      ["AEB-110", "Still latched inactive at 32s (expected re-armed at 30s)", "QAM-312", "Open"]
+    ],
+    "footer": "Note: No orphan failures found \u2014 every failed test case traces to an existing defect (all logged in Sprint 15, Status: Open/Blocked)."
+  },
+  "passed_iteration_check": {
+    "note": "Verifying each passing test ran the correct, single, clean iteration",
+    "rows": [
+      ["AEB-99", "Radar plausibility validation", "1 (start \u2192 pass)", "Correct \u2014 single clean run, no retries"],
+      ["AEB-101", "TTC re-evaluation after lock loss", "1 (start \u2192 pass)", "Correct \u2014 single clean run, no retries"],
+      ["AEB-118", "AEB sensitivity configuration via HMI", "1 (start \u2192 pass)", "Correct \u2014 single clean run, no retries"],
+      ["AEB-130", "EDR activation logging", "1 (start \u2192 pass)", "Correct \u2014 single clean run, no retries"]
+    ],
+    "footer": "Execution log (execution-log.txt) shows exactly one start/pass event per passing test case \u2014 no repeated attempts or flaky retries were required to reach a pass. Iteration counts are correct."
+  },
+  "summary": {
+    "donut_labels": ["Passed", "Failed", "Not Executed"],
+    "donut_values": [4, 3, 3],
+    "bullets": [
+      ["10 requirements in scope, 7 covered by a test case (3 have no test: AEB-114, AEB-121, AEB-125).", true],
+      ["4 of 7 executed tests passed (57%) \u2014 AEB-99, AEB-101, AEB-118, AEB-130.", false],
+      ["3 of 7 executed tests failed (43%) \u2014 AEB-105, AEB-108, AEB-110.", false],
+      ["All 3 failures are already linked to open/blocked defects (QAM-313, QAM-305, QAM-312) \u2014 no orphan failures.", false],
+      ["All 4 passing tests ran a single, clean iteration with no retries \u2014 pass results are trustworthy.", false],
+      ["Gap: AEB-114, AEB-121, AEB-125 have no test coverage yet and should be prioritized before release.", false]
+    ]
+  }
+}

@@ -6,6 +6,11 @@ outline. Rationale: no signup/trial-expiry dependency, no shared tenant for
 15 people's workflow runs to collide on, and every participant gets an
 identical, disposable environment.
 
+This `docker-compose.yml` also defines a **Splunk** service — that one's
+for the client demo (see `splunk-demo.md`), not part of any lab exercise.
+`docker compose up -d` with no service name starts both; if you only want
+n8n for the actual lab, run `docker compose up -d n8n` instead.
+
 ## Prerequisites
 
 - Docker Desktop (Windows/Mac) or Docker Engine + Compose plugin (Linux)
@@ -21,7 +26,7 @@ cd lab/module-2-mcp-n8n/docker
 cp .env.example .env
 # edit .env: set a real N8N_ENCRYPTION_KEY
 #   generate one with: openssl rand -hex 32
-docker compose up -d
+docker compose up -d n8n
 ```
 
 Open http://localhost:5678 — first load shows n8n's own **"Set up owner
@@ -49,10 +54,13 @@ even local-only ones.
 ## Stop / reset
 
 ```bash
-docker compose down        # stop, keep data (workflows/credentials persist)
-docker compose down -v     # stop AND wipe all data — use between cohorts,
-                            # or if you want to start Module 2 over clean
+docker compose stop n8n         # stop n8n only, keep data
+docker compose down n8n -v      # stop n8n AND wipe its data — use between
+                                 # cohorts, or to start Module 2 over clean
 ```
+
+(Drop `n8n` from either command to also stop/wipe Splunk — the demo
+container — at the same time.)
 
 ## Troubleshooting
 

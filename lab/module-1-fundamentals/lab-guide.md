@@ -1,6 +1,6 @@
 # Lab Guide — Module 1: GenAI Fundamentals & AI-Assisted PM Workflows
 
-**Duration:** ~45 minutes hands-on
+**Duration:** ~50 minutes hands-on (Ex.1 8 / Ex.2 15 / Ex.3 10 / Ex.4 10 / Ex.5 7)
 **Tools:** VS Code + Copilot Chat only (no MCP, no live Jira needed)
 **Files you'll use:** everything in `sample-data/`
 
@@ -10,7 +10,7 @@
 
 ---
 
-## Exercise 1 — Foundational prompt patterns (10 min)
+## Exercise 1 — Foundational prompt patterns (8 min)
 
 Open `sample-data/sprint-board-export.csv` and `sample-data/backlog.csv` in
 VS Code so Copilot Chat has them in context (`#file` reference them, or select
@@ -97,7 +97,27 @@ attempt at a status-report prompt, plus a note on why it underperforms.
 
 ---
 
-## Wrap-up questions (facilitator-led — fold into the last few minutes of Exercise 4, no separate slot)
+## Exercise 5 — Apply it: backlog grooming (7 min)
+
+Now point the template you just built at a different ceremony. Open
+`sample-data/backlog.csv` and prompt Copilot to flag items that need
+grooming attention before they can enter a sprint:
+
+> "Using #backlog.csv, flag items that need grooming: (1) no story point
+> estimate, (2) still 'Needs Grooming' status, (3) summaries similar enough
+> to another item that they might be duplicates. List each with its ticket
+> ID and a one-line reason. Only flag what's actually in the data."
+
+You should get real hits on all three criteria — this file has two
+unestimated items and a pair of summaries close enough to question. If
+Copilot's output invents a reason not actually supported by the data
+(e.g. claims an item is stale without a "last touched" field to back that
+up), that's the same guardrail habit from Exercise 4 showing up again in a
+new context — reusable templates need reusable skepticism to match.
+
+---
+
+## Wrap-up questions (facilitator-led — fold into the last few minutes of Exercise 5, no separate slot)
 
 - Where did Copilot add something plausible-sounding that wasn't in the
   source data? What would have caught that before it reached a stakeholder?

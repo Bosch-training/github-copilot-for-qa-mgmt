@@ -28,6 +28,7 @@ reference only — see below.
 | Module 2 sample data (Jira CSVs — fallback only, see below) | Ready to use |
 | Module 2 n8n Docker setup (`module-2-mcp-n8n/docker/`, Plan B path) | **Verified** — `docker compose up -d` pulls and boots `n8nio/n8n:latest` cleanly, confirmed against a running container (see docker/README.md for the owner-account first-run flow) |
 | Module 2 n8n starter workflow (`n8n-workflow-starter.json`) | **Structurally verified** — imported via `n8n import:workflow` and round-tripped through the REST API against a live n8n 2.35.3 container; every node type/version/connection persists exactly as authored with no issues flagged. Fixed 2 real bugs this way (see facilitator-notes.md). **Still needs**: a run with real Jira/AI-provider/SMTP credentials — nobody has done that yet (trainer-only steps for a first SMTP test are in facilitator-notes.md) |
+| Splunk demo (`module-2-mcp-n8n/docker/splunk-demo.md`) — client-facing, not a lab exercise | **Verified end-to-end** — booted, HEC token created via REST API, test event sent and confirmed searchable with the correct field-extraction query. Caught and fixed 3 real issues this way (Web UI is HTTP not HTTPS by default, HEC needs HTTPS, and `\| spath` is required for the JSON fields to be searchable) — see docker/README.md and splunk-demo.md |
 | Module 3 sample data + answer keys | Ready to use |
 | Course Resources / Pre-Read / Assessment (marked TBD in the outline doc) | Not yet built — out of scope for this pass, flagged for follow-up |
 

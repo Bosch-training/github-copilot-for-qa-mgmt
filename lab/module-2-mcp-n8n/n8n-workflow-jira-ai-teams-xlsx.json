@@ -1,0 +1,187 @@
+{
+  "id": "3f2a9c1e-7d4b-4a6f-9e12-b8c5d0a1f6e3",
+  "name": "QAM - Jira JQL to AI Summary to XLSX in Teams",
+  "nodes": [
+    {
+      "id": "trigger-1",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [-960, 0],
+      "parameters": {}
+    },
+    {
+      "id": "jira-1",
+      "name": "Get Jira Issues",
+      "type": "n8n-nodes-base.jira",
+      "typeVersion": 1,
+      "position": [-720, 0],
+      "notes": "Placeholder JQL — replace project key / sprint (or whatever filter you need) with your own before running. Attach your own Jira credential; don't reuse someone else's saved credential on a shared instance.",
+      "parameters": {
+        "resource": "issue",
+        "operation": "getAll",
+        "returnAll": true,
+        "jql": "project = QAM AND sprint in openSprints() ORDER BY priority DESC"
+      },
+      "credentials": {
+        "jiraSoftwareCloudApi": {
+          "id": "PLACEHOLDER_JIRA_CRED_ID",
+          "name": "Jira Sandbox - REPLACE ME"
+        }
+      }
+    },
+    {
+      "id": "code-1",
+      "name": "Format Issues For Prompt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-480, 0],
+      "notes": "Reduces the raw Jira issue array into (a) a compact text block for the AI Agent's prompt and (b) a per-issue row array reused later by the XLSX-building code node.",
+      "parameters": {
+        "language": "javaScript",
+        "jsCode": "const issues = items.map(i => i.json);\n\nconst rows = issues.map(issue => {\n  const f = issue.fields || {};\n  return {\n    Key: issue.key,\n    Type: f.issuetype?.name || 'Unknown',\n    Status: f.status?.name || 'Unknown',\n    Priority: f.priority?.name || 'n/a',\n    Points: f.customfield_10016 ?? 'n/a',\n    Summary: f.summary || ''\n  };\n});\n\nconst promptText = rows.map(r =>\n  `- ${r.Key} | ${r.Type} | status: ${r.Status} | priority: ${r.Priority} | points: ${r.Points} | summary: ${r.Summary}`\n).join('\\n');\n\nreturn [{ json: { issueCount: rows.length, summaryText: promptText, rows } }];"
+      }
+    },
+    {
+      "id": "lm-1",
+      "name": "OpenAI Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [-240, 180],
+      "notes": "Model sub-node feeding 'AI Agent' via the special Model input (dashed connector), not a normal data link. Swap for Anthropic/Gemini/etc. if your org standardizes on a different provider.",
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "id",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "credentials": {
+        "openAiApi": {
+          "id": "PLACEHOLDER_AI_CRED_ID",
+          "name": "AI Provider - REPLACE ME"
+        }
+      }
+    },
+    {
+      "id": "agent-1",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [-240, 0],
+      "notes": "Summarizes the Jira issue set in one shot (no tools attached — this is a summarization step, not an autonomous agent). Output text lands in $json.output — confirm via 'Execute step' before trusting the field name downstream.",
+      "parameters": {
+        "promptType": "define",
+        "text": "=Summarize the following Jira issues for a Test Manager. Cover: (1) overall status mix, (2) any high/critical priority items still open, (3) one flagged risk if there is one. Only use information present below — never invent details.\n\n{{ $json.summaryText }}",
+        "options": {
+          "systemMessage": "You are an assistant drafting an advisory sprint status summary. Be concise (under 150 words) and flag anything uncertain rather than guessing."
+        }
+      }
+    },
+    {
+      "id": "code-2",
+      "name": "Prepare XLSX Rows",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [0, 0],
+      "notes": "Builds one consistent-schema row set for the spreadsheet: a leading 'AI SUMMARY' row holding the AI Agent's narrative, followed by one row per Jira issue.",
+      "parameters": {
+        "language": "javaScript",
+        "jsCode": "const formatted = $('Format Issues For Prompt').first().json;\nconst aiSummary = $json.output || '(no summary produced — check AI Agent node output field name)';\n\nconst summaryRow = {\n  Key: 'AI SUMMARY',\n  Type: '',\n  Status: '',\n  Priority: '',\n  Points: '',\n  Summary: aiSummary\n};\n\nreturn [summaryRow, ...formatted.rows].map(row => ({ json: row }));"
+      }
+    },
+    {
+      "id": "convert-1",
+      "name": "Convert to XLSX",
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [240, 0],
+      "notes": "Produces the binary XLSX from the rows above. File lands on binary property 'data' — referenced by the OneDrive upload node next.",
+      "parameters": {
+        "operation": "xlsx",
+        "binaryPropertyName": "data",
+        "options": {
+          "fileName": "Sprint-Report.xlsx",
+          "sheetName": "Sprint Report",
+          "headerRow": true
+        }
+      }
+    },
+    {
+      "id": "onedrive-1",
+      "name": "Upload XLSX to OneDrive",
+      "type": "n8n-nodes-base.microsoftOneDrive",
+      "typeVersion": 1,
+      "position": [480, 0],
+      "notes": "Microsoft Teams' node has no direct file-attachment operation (Teams channel files are backed by SharePoint/OneDrive), so the workbook is uploaded here first and linked in the Teams message next. Replace the placeholder parent folder ID with a real one — see 'Find the folder ID' in n8n's OneDrive docs.",
+      "parameters": {
+        "resource": "file",
+        "operation": "upload",
+        "binaryDataUpload": true,
+        "binaryPropertyName": "data",
+        "parentId": "PLACEHOLDER_ONEDRIVE_FOLDER_ID",
+        "name": "=Sprint-Report-{{ $now.format('yyyy-MM-dd') }}.xlsx"
+      },
+      "credentials": {
+        "microsoftOneDriveOAuth2Api": {
+          "id": "PLACEHOLDER_ONEDRIVE_CRED_ID",
+          "name": "OneDrive - REPLACE ME"
+        }
+      }
+    },
+    {
+      "id": "teams-1",
+      "name": "Post Summary To Teams",
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [720, 0],
+      "notes": "Posts the AI summary plus a link to the uploaded workbook into the target channel. Replace Team ID and Channel ID with your real ones (use the node's dropdown/list-search in the n8n UI rather than hardcoding once you're set up).",
+      "parameters": {
+        "resource": "channelMessage",
+        "operation": "create",
+        "teamId": "PLACEHOLDER_TEAM_ID",
+        "channelId": "PLACEHOLDER_CHANNEL_ID",
+        "messageType": "html",
+        "message": "=<strong>Sprint Report — {{ $now.format('yyyy-MM-dd') }}</strong><br><br>{{ $('AI Agent').first().json.output }}<br><br>Full workbook: <a href=\"{{ $json.webUrl }}\">{{ $json.name }}</a>"
+      },
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "PLACEHOLDER_TEAMS_CRED_ID",
+          "name": "Teams - REPLACE ME"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [[{ "node": "Get Jira Issues", "type": "main", "index": 0 }]]
+    },
+    "Get Jira Issues": {
+      "main": [[{ "node": "Format Issues For Prompt", "type": "main", "index": 0 }]]
+    },
+    "Format Issues For Prompt": {
+      "main": [[{ "node": "AI Agent", "type": "main", "index": 0 }]]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [[{ "node": "AI Agent", "type": "ai_languageModel", "index": 0 }]]
+    },
+    "AI Agent": {
+      "main": [[{ "node": "Prepare XLSX Rows", "type": "main", "index": 0 }]]
+    },
+    "Prepare XLSX Rows": {
+      "main": [[{ "node": "Convert to XLSX", "type": "main", "index": 0 }]]
+    },
+    "Convert to XLSX": {
+      "main": [[{ "node": "Upload XLSX to OneDrive", "type": "main", "index": 0 }]]
+    },
+    "Upload XLSX to OneDrive": {
+      "main": [[{ "node": "Post Summary To Teams", "type": "main", "index": 0 }]]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "_scaffoldNotice": "Hand-authored against documented n8n node types/params (n8n-nodes-base.jira, @n8n/n8n-nodes-langchain.agent + lmChatOpenAi, n8n-nodes-base.convertToFile, n8n-nodes-base.microsoftOneDrive, n8n-nodes-base.microsoftTeams). Every credential ID, folder ID, team/channel ID, and the JQL are placeholders — replace them, then run node-by-node with 'Execute step' before trusting the full chain, same as the Module 2 starter workflow."
+}

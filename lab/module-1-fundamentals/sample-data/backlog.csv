@@ -9,3 +9,5 @@ QAM-226,Add pedestrian-crossing AEB test scenario,Story,High,5,AEB Hardening,Nee
 QAM-227,Coverage-gap report automation,Story,High,8,Automation,Needs Grooming
 QAM-228,Upgrade HIL bench firmware,Task,Medium,3,Test Infra,Ready
 QAM-229,PR scope-check bot proof of concept,Spike,Medium,5,Automation,Needs Grooming
+QAM-230,Investigate AEB behavior on wet-road low-friction surface,Story,High,,AEB Hardening,Needs Grooming
+QAM-231,Radar plausibility check — highway gantry edge cases,Story,Medium,,AEB Hardening,Needs Grooming
